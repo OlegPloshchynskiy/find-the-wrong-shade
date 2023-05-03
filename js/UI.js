@@ -7,7 +7,7 @@ function randomColor() {
 
 const renderSquare = (color) => {
     box.innerHTML = ''
-    let gameCount = 4;
+    gameCount = 4;
 
     if (score >= 5) {
         gameCount = 6;
@@ -40,18 +40,11 @@ const renderSquare = (color) => {
     squareCount[randomSquare].value = 1;
 }
 
-let time = 20;
-const renderTimer = () => {
-    timerBox.setAttribute(
-        "style",
-        "background: #48ff00"
-    );
-    startTimer();
-}
+let time = 10;
 
 
 const renderScore = () => {
-    scoreBox.textContent = `Score: ${score}`;
+    scoreBox.textContent = `${score}`;
 }
 
 

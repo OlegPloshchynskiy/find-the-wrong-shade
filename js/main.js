@@ -30,8 +30,11 @@ pageMode.addEventListener("change", () => {
 });
 
 startBtn.addEventListener("click", () => {
-  start = true;
-  run();
+  startTimer();
+  renderSquare(randomColor());
+  gameplay();
+  renderScore();
+  startBtn.style.display = "none";
 });
 
 const gameplay = () => {
@@ -39,18 +42,15 @@ const gameplay = () => {
 
   for (let i = 0; i < squareCount.length; i++) {
     squareCount[i].addEventListener("click", () => {
-      if (squareCount[i].value == 1) {
-        renderTimer();
-        run();
+      if (squareCount[i].value === '1') {
         clearTimer();
         score++;
+        renderSquare(randomColor());
         renderScore();
+        gameplay();
+        startTimer();
       } else {
-        alert(`You loose! Score ${score}`);
-        score = 0;
-        gameCount = 4;
-        scoreBox.textContent = `Score: ${score}`;
-        clearTimer();
+        looseGame(`You loose!`);
       }
     });
   }
@@ -60,23 +60,25 @@ function startTimer() {
   timer = setInterval(() => {
     timerBox.textContent = time--;
     if (time < 0) {
-      clearTimer();
+      looseGame(`Time out!`)
     }
   }, 1000);
 }
 
 const clearTimer = () => {
   clearInterval(timer);
-  time = 20;
+  time = 10;
 };
 
-const run = () => {
+const looseGame = (mess) => {
+  clearTimer();
+  box.style.width = '250px'
+  alert(`${mess} Score ${score}`)
+  gameCount = 4;
+  score = 0;
   renderSquare(randomColor());
-  gameplay();
   renderScore();
-  startBtn.style.display = "none";
-};
-
-const looseGame = () => {
-  alert(`You loose! Score ${score}`);
+  gameplay();
+  startTimer();
+  alert(`Press "OK" restart game`)
 };
